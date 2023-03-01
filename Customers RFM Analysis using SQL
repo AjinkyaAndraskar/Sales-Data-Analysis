@@ -1,0 +1,104 @@
+# Inspecting Data
+    use sales_data;
+    select * from sales_data;
+
+#Checking unique values
+    select distinct STATUS from sales_data;
+    select distinct year_id from sales_data;
+    select distinct productline from sales_data;
+    select distinct country from sales_data;
+    select distinct dealsize from sales_data;
+    select distinct territory from sales_data;
+
+    select distinct month_id from sales_data
+    where year_id = 2005
+    order by 1;
+
+# Analysis
+# Lets start by grouping sales by productline
+    select productline,sum(sales) revenue
+    from sales_data
+    group by PRODUCTLINE
+    order by 2 desc;
+
+    select year_id, sum(sales) revenue 
+    from sales_data
+    group by YEAR_ID
+    order by 2 desc;
+
+    select dealsize, sum(sales) revenue
+    from sales_data
+    group by DEALSIZE
+    order by 2 desc;
+
+# What was the best month for sales in a specific year? How much was earned that month? 
+    select month_id,sum(sales) revenue, count(ORDERNUMBER) Frequency
+    from sales_data
+    where YEAR_ID = 2004
+    group by 1
+    order by 2 desc;
+
+    select monthname(OrderDate),sum(sales) revenue,count(ORDERNUMBER) Frequency
+    from sales_data
+    where YEAR_ID = 2004
+    group by 1
+    order by 2 desc;
+
+# November seems to be the month, what product do they sell in November, Classic I believe
+    select  MONTH_ID, PRODUCTLINE, sum(sales) Revenue, count(ORDERNUMBER) frequency
+    from sales_data
+    where YEAR_ID = 2004 and MONTH_ID = 11 
+    group by  MONTH_ID, PRODUCTLINE
+    order by 3 desc; 
+
+# Who is our best customer (this could be best answered with RFM)
+      with rfm as
+      (       select 
+          CUSTOMERNAME, 
+          sum(sales) MonetaryValue,
+          avg(sales) AvgMonetaryValue,
+          count(ORDERNUMBER) Frequency,
+          max(ORDERDATE) last_order_date,
+          (select max(ORDERDATE) from sales_data max_order_date) max_order_date,
+          DATEDIFF((select max(ORDERDATE) from sales_data),max(ORDERDATE)) Recency
+          from sales_data
+          group by CUSTOMERNAME
+      ) ,
+      rfm_calc as     
+      (     select r.*,
+            ntile(4) over (order by Recency desc) rfm_recency,
+            ntile(4) over (order by Frequency) rfm_frequency,
+            ntile(4) over (order by AvgMonetaryValue) rfm_monetary
+            from rfm r 
+      )    
+        SELECT 
+        c.*, 
+        rfm_recency + rfm_frequency + rfm_monetary as rfm_cell,
+          concat(rfm_recency," ",rfm_frequency," ",rfm_monetary)  as rfm_cell_string,
+          case 
+           when rfm_recency = 1 and rfm_frequency = 1 and rfm_monetary = 1 then "Best Customers"
+         when rfm_recency between 2 and 4 and rfm_frequency between 2 and 4  and rfm_monetary = 1 then "Big Spenders"
+         when rfm_recency between 2 and 4 and rfm_frequency = 1 and rfm_monetary between 1 and 4 then "Loyal Customers"
+         when rfm_recency = 1 and rfm_frequency between 1 and 4 and rfm_monetary between 1 and 4 then "Recent Customers"
+         when rfm_recency = 3 and rfm_frequency = 1 and rfm_monetary = 1 then "Almost lost"
+           when rfm_recency = 4 and rfm_frequency = 1 and rfm_monetary = 1 then "Lost Customers"
+         when rfm_recency = 4 and rfm_frequency between 3 and 4 and rfm_monetary between 3 and 4 then "Lost Cheap Customers"
+         when rfm_recency between 2 and 4 and rfm_frequency between 2 and 4 and rfm_monetary between 2 and 4 then "Others"
+       end rfm_segnment
+      FROM rfm_calc c;
+
+# What is the best product in United States?
+    select country, YEAR_ID, PRODUCTLINE, sum(sales) Revenue
+    from sales_data
+    where country = 'USA'
+    group by  country, YEAR_ID, PRODUCTLINE
+    order by 4 desc;
+
+# What city has the highest number of sales in a specific country
+    select city, sum(sales) Revenue
+    from sales_data
+    where country = 'UK'
+    group by city
+    order by 2 desc;
+
+
