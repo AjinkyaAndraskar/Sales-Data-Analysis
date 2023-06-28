@@ -3,7 +3,7 @@
 * Title: Sales Analysis using RFM and Product Associations
 * Created by: Ajinkya Andraskar
 * Date: 28-06-2023
-* Tool used: Microsoft SQL Server Management Studio |
+* Tool used: Microsoft SQL Server Management Studio 
 
 # Introduction:
  In this project, we performed an analysis of sales data to gain insights into various aspects of the business. We used SQL queries to extract, transform,       and analyze the data. The analysis includes RFM (Recency, Frequency, Monetary) analysis to identify customer segments and product association analysis to   understand which products are often sold together.
