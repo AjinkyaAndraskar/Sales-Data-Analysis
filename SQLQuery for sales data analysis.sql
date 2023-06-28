@@ -19,12 +19,13 @@ from [dbo].[sales_data_sample]
 group by PRODUCTLINE
 order by 2 desc
 
-
+----Let's start by grouping sales by YEAR
 select YEAR_ID, sum(sales) Revenue
 from [dbo].[sales_data_sample]
 group by YEAR_ID
 order by 2 desc
-
+	
+----Let's start by grouping sales by DEALSIZE
 select  DEALSIZE,  sum(sales) Revenue
 from [dbo].[sales_data_sample]
 group by  DEALSIZE
