@@ -1,4 +1,4 @@
----Inspecting Data
+--- Inspecting Data
 select * from [dbo].[sales_data_sample]
 
 --CHecking unique values
