@@ -82,7 +82,7 @@ from rfm_calc c
 
 select CUSTOMERNAME , rfm_recency, rfm_frequency, rfm_monetary,
 	case 
-		 when rfm_recency = 1 and rfm_frequency = 1 and rfm_monetary = 1 then 'Best Customer' ---Best Customer
+         when rfm_recency = 1 and rfm_frequency = 1 and rfm_monetary = 1 then 'Best Customer' ---Best Customer
          when rfm_recency between 2 and 4 and rfm_frequency between 2 and 4  and rfm_monetary = 1 then 'Big Spenders' ---Big Spenders
          when rfm_recency between 2 and 4 and rfm_frequency = 1 and rfm_monetary between 1 and 4 then 'Loyal Customers'  ---Loyal Customers
          when rfm_recency = 1 and rfm_frequency between 1 and 4 and rfm_monetary between 1 and 4 then 'Recent Customers' ---Recent Customers'
@@ -90,7 +90,7 @@ select CUSTOMERNAME , rfm_recency, rfm_frequency, rfm_monetary,
          when rfm_recency = 4 and rfm_frequency = 1 and rfm_monetary = 1 then 'Lost Customers' ---Lost Customers
          when rfm_recency = 4 and rfm_frequency between 3 and 4 and rfm_monetary between 3 and 4 then 'Lost Cheap Customers' ---Lost Cheap Customers
          when rfm_recency between 2 and 4 and rfm_frequency between 2 and 4 and rfm_monetary between 2 and 4 then 'Others' ---Others
-	end rfm_segment
+	 end rfm_segment
 
 from #rfm
 
