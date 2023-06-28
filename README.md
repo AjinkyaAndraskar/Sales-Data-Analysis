@@ -6,11 +6,10 @@
 * Tool used: Microsoft SQL Server Management Studio 
 
 # Introduction:
- In this project, we performed an analysis of sales data to gain insights into various aspects of the business. We used SQL queries to extract, transform,       and analyze the data. The analysis includes RFM (Recency, Frequency, Monetary) analysis to identify customer segments and product association analysis to   understand which products are often sold together.
+ In this project, I have performed an analysis of sales data to gain insights into various aspects of the business. I have used SQL queries to extract, transform, and analyze the data. The analysis includes RFM (Recency, Frequency, Monetary) analysis to identify customer segments and product association analysis to understand which products are often sold together.
 
 # Data:
- We obtained the sales data set from Kaggle, which includes information such as order number, quantity ordered, price each, sales, order date, status,   quarter ID, month ID, year ID, product line, MSRP, product code, customer name, phone, address, city, state, postal code, country, territory, contact last name, contact first name, and deal size.
-
+ I obtained the sales data set from Kaggle, which includes information such as order number, quantity ordered, price each, sales, order date, status, quarter ID, month ID, year ID, product line, MSRP, product code, customer name, phone, address, city, state, postal code, country, territory, contact last name, contact first name, and deal size.
 # Approach:
 
  Inspecting Data:
