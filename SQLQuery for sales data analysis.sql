@@ -2,12 +2,12 @@
 select * from [dbo].[sales_data_sample]
 
 --CHecking unique values
-select distinct status from [dbo].[sales_data_sample] --Nice one to plot
+select distinct status from [dbo].[sales_data_sample] 
 select distinct year_id from [dbo].[sales_data_sample]
-select distinct PRODUCTLINE from [dbo].[sales_data_sample] ---Nice to plot
-select distinct COUNTRY from [dbo].[sales_data_sample] ---Nice to plot
-select distinct DEALSIZE from [dbo].[sales_data_sample] ---Nice to plot
-select distinct TERRITORY from [dbo].[sales_data_sample] ---Nice to plot
+select distinct PRODUCTLINE from [dbo].[sales_data_sample] 
+select distinct COUNTRY from [dbo].[sales_data_sample] 
+select distinct DEALSIZE from [dbo].[sales_data_sample] 
+select distinct TERRITORY from [dbo].[sales_data_sample] 
 
 select distinct MONTH_ID from [dbo].[sales_data_sample]
 where year_id = 2003
@@ -83,19 +83,19 @@ from rfm_calc c
 select CUSTOMERNAME , rfm_recency, rfm_frequency, rfm_monetary,
 	case 
 		 when rfm_recency = 1 and rfm_frequency = 1 and rfm_monetary = 1 then 'Best Customer' ---Best Customer
-         when rfm_recency between 2 and 4 and rfm_frequency between 2 and 4  and rfm_monetary = 1 then 'Big Spenders'
-         when rfm_recency between 2 and 4 and rfm_frequency = 1 and rfm_monetary between 1 and 4 then 'Loyal Customers'
-         when rfm_recency = 1 and rfm_frequency between 1 and 4 and rfm_monetary between 1 and 4 then 'Recent Customers'
-         when rfm_recency = 3 and rfm_frequency = 1 and rfm_monetary = 1 then 'Almost lost'
-         when rfm_recency = 4 and rfm_frequency = 1 and rfm_monetary = 1 then 'Lost Customers'
-         when rfm_recency = 4 and rfm_frequency between 3 and 4 and rfm_monetary between 3 and 4 then 'Lost Cheap Customers'
-         when rfm_recency between 2 and 4 and rfm_frequency between 2 and 4 and rfm_monetary between 2 and 4 then 'Others'
+         when rfm_recency between 2 and 4 and rfm_frequency between 2 and 4  and rfm_monetary = 1 then 'Big Spenders' --Big Spenders
+         when rfm_recency between 2 and 4 and rfm_frequency = 1 and rfm_monetary between 1 and 4 then 'Loyal Customers' -- Loyal Customers
+         when rfm_recency = 1 and rfm_frequency between 1 and 4 and rfm_monetary between 1 and 4 then 'Recent Customers' --Recent Customers
+         when rfm_recency = 3 and rfm_frequency = 1 and rfm_monetary = 1 then 'Almost lost' --Almost lost
+         when rfm_recency = 4 and rfm_frequency = 1 and rfm_monetary = 1 then 'Lost Customers' --Lost Customers
+         when rfm_recency = 4 and rfm_frequency between 3 and 4 and rfm_monetary between 3 and 4 then 'Lost Cheap Customers' --Lost Cheap Customers
+         when rfm_recency between 2 and 4 and rfm_frequency between 2 and 4 and rfm_monetary between 2 and 4 then 'Others' --Others
 	end rfm_segment
 
 from #rfm
 
 --What products are most often sold together? 
---select * from [dbo].[sales_data_sample] where ORDERNUMBER =  10411
+select * from [dbo].[sales_data_sample] where ORDERNUMBER =  10411
 
 select distinct OrderNumber, stuff(
 
@@ -132,7 +132,7 @@ order by 2 desc
 
 
 
----What is the best product in United States?
+--What is the best product in United States?
 select country, YEAR_ID, PRODUCTLINE, sum(sales) Revenue
 from [dbo].[sales_data_sample]
 where country = 'USA'
